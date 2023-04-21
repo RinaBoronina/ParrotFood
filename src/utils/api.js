@@ -53,3 +53,10 @@ class Api {
 }
 
 export const api = new Api(config);
+
+export const editLike = (id, cardLiked) => {
+    return fetch(`${config.baseUrl}/products/likes/${id}`, {
+        method: cardLiked ? 'DELETE' : 'PUT',
+        headers: config.headers,
+    }).then(onResponse);
+};
