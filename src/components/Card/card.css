@@ -95,21 +95,24 @@
 }
 
 .card__sticky_left {
+    display: flex;
+    flex-wrap: wrap;
+    /* flex-direction: column; */
     top: 0;
     left: 0;
+    gap: 3px;
+    margin-right: 15px;
 }
 
 .card__sticky_right {
-    top: 0;
+    top: 5px;
     right: 0;
 }
 
-.card__favorite {
+.btn__like {
     cursor: pointer;
     background: none;
     border: none;
-    padding: 0;
-    display: flex;
 }
 
 .card__btn {
@@ -149,11 +152,11 @@
     background-color: #01a54e;
     color: #ffffff;
 }
-.card__svg {
+.card__like svg {
     fill: transparent;
-    stroke: transparent;
+    stroke: black;
 }
-.card__svg_active {
+.card__like_active svg {
     fill: red;
     stroke: red;
 }

@@ -6,7 +6,6 @@ import { CardList } from './components/CardList/CardList';
 import { api } from './utils/api';
 
 function App() {
-    const [hook, setHook] = useState('');
     const [card, setCards] = useState([]);
     const [search, setSearch] = useState(undefined);
     const [user, setUser] = useState({});
@@ -24,7 +23,7 @@ function App() {
 
     useEffect(() => {
         api.getProductList().then((res) => setCards(myCards(res.products)));
-        api.getUserInfo().then((data) => setUser(myCards(data)));
+        api.getUserInfo().then((data) => setUser(data));
     }, []);
 
     return (
@@ -32,7 +31,7 @@ function App() {
             <Header setSearch={setSearch}></Header>
             <main>
                 <div className="container">
-                    <CardList cards={card} />
+                    <CardList cards={card} userId={user._id} />
                 </div>
             </main>
             <Footer />

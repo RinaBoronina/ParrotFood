@@ -1,8 +1,17 @@
 import React from 'react';
 import './card.css';
 import { ReactComponent as Like } from './img/Like.svg';
+import { api } from '../../utils/api';
 
-const Card = ({ product }) => {
+const Card = ({ product, userId }) => {
+    const cardLiked = product.likes.some((item) => item === userId);
+
+    const changeLike = () => {
+        return !cardLiked
+            ? api.addLike(product._id)
+            : api.removeLike(product._id);
+    };
+
     return (
         <div className="card">
             <div className="card__sticky card__sticky_left">
@@ -11,9 +20,19 @@ const Card = ({ product }) => {
                 ) : (
                     ''
                 )}
+                {product.tags.map((item) => (
+                    <span className={`tag tag_type_${item}`}>{item}</span>
+                ))}
             </div>
             <div className="card__sticky card__sticky_right">
-                <Like className="card__svg" />
+                <button
+                    onClick={changeLike}
+                    className={`btn__like ${
+                        cardLiked ? 'card__like_active' : 'card__like'
+                    }`}
+                >
+                    <Like />
+                </button>
             </div>
             <a href="/" className="card__link">
                 <div className="card__image_wrapper">
