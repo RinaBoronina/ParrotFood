@@ -11,27 +11,21 @@ function App() {
     const [search, setSearch] = useState(undefined);
     const [user, setUser] = useState({});
 
+    const myCards = (card) => {
+        return card.filter(
+            (item) => item.author._id === '643fb8243291d790b3f3b309'
+        );
+    };
+
     useEffect(() => {
         if (search === undefined) return;
-        api.searchProducts(search).then((data) => setCards(data));
-        // const filtered = data.filter((e) =>
-        //     e.name.toLowerCase().includes(search.toLowerCase())
-        // );
-        // setCards(filtered);
+        api.searchProducts(search).then((data) => setCards(myCards(data)));
     }, [search]);
 
     useEffect(() => {
-        Promise.all([api.getUserInfo(), api.getProductList()]).then(
-            ([userData, productData]) => {
-                setUser(userData);
-                setCards(productData.products);
-            }
-        );
-        // api.getProductList().then((res) => setCards(res.products));
-        // api.getUserInfo().then((data) => setUser(data));
+        api.getProductList().then((res) => setCards(myCards(res.products)));
+        api.getUserInfo().then((data) => setUser(myCards(data)));
     }, []);
-
-    console.log({ user });
 
     return (
         <div className="App">
@@ -47,17 +41,3 @@ function App() {
 }
 
 export default App;
-
-// const clicker = () => {
-//     setHook((state) => (state = state + 1));
-// };
-// --------------------------------------------
-// const searcher = () => {
-//     if (search === undefined) return;
-//     const filtered = data.filter((e) =>
-//         e.name.toLowerCase().includes(search.toLowerCase())
-//     );
-//     setCards(filtered);
-// };
-
-// useEffect(searcher, [search]);
