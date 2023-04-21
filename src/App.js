@@ -36,8 +36,10 @@ function App() {
     return (
         <div className="App">
             <Header setSearch={setSearch}></Header>
-            <main className="container">
-                <CardList cards={card} />
+            <main>
+                <div className="container">
+                    <CardList cards={card} />
+                </div>
             </main>
             <Footer />
         </div>

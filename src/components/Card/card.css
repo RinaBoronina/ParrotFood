@@ -4,7 +4,11 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 20px;
+    background-color: #fff;
+    border: 1px solid #ffe44d;
+    gap: 20px;
+    overflow: hidden;
 }
 
 .card:hover {
@@ -17,20 +21,26 @@
         0 0.5px 2px rgba(96, 97, 112, 0.24);
 }
 
-.card__desc {
+.card__description {
     font-size: 16px;
     padding-top: 14px;
     font-weight: 600;
     position: relative;
 }
 
+.card__image_wrapper {
+    border-radius: 15px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+    display: flex;
+}
 .card__image {
     width: 100%;
-    object-fit: contain;
-    margin-bottom: 16px;
+    object-fit: cover;
 }
 
-.card__old-price {
+.card__old_price {
     font-size: 12px;
     position: absolute;
     top: 0;
@@ -50,7 +60,7 @@
     margin-bottom: 6px;
 }
 
-.card__price_type_discount {
+.card__price_discount {
     color: #f44336;
 }
 
@@ -63,7 +73,7 @@
     margin-bottom: 10px;
 }
 
-.card__name {
+.card__text {
     font-size: 16px;
     line-height: 1.25;
     margin-bottom: 10px;
@@ -84,12 +94,12 @@
     padding: 10px;
 }
 
-.card__sticky_type_top-left {
+.card__sticky_left {
     top: 0;
     left: 0;
 }
 
-.card__sticky_type_top-right {
+.card__sticky_right {
     top: 0;
     right: 0;
 }
@@ -102,16 +112,7 @@
     display: flex;
 }
 
-.card__cart {
-    margin-top: auto;
-}
-
-.card__link {
-    text-decoration: none;
-    color: currentColor;
-}
-
-.btn {
+.card__btn {
     padding: 10px 18px;
     font-size: 16px;
     font-weight: 700;
@@ -121,12 +122,13 @@
     display: inline-block;
     transition: all 0.3s;
     border: none;
+    margin-top: auto;
 }
 
-.btn_type_primary {
+.btn_color {
     background-color: #ffe44d;
 }
-.btn_type_primary:hover {
+.btn_color:hover {
     background-color: #ffaa0d;
     color: #f44336;
 }
@@ -148,8 +150,10 @@
     color: #ffffff;
 }
 .card__svg {
-    fill: red;
+    fill: transparent;
+    stroke: transparent;
 }
-.card__liked > svg {
+.card__svg_active {
     fill: red;
+    stroke: red;
 }
