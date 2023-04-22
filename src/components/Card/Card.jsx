@@ -3,14 +3,16 @@ import './card.css';
 import { ReactComponent as Like } from './img/Like.svg';
 import { editLike } from '../../utils/api';
 
-const Card = ({ product, userId }) => {
+const Card = ({ product, userId, changeLikeCard }) => {
     const cardLiked = product.likes.some((item) => item === userId);
 
-    const changeLike = async () => {
+    // console.log(product.likes);
+    const changeLike = () => {
         // return !cardLiked
         //     ? api.addLike(product._id)
         //     : api.removeLike(product._id);
-        return await editLike(product._id, cardLiked);
+        changeLikeCard(product._id, cardLiked);
+        // return editLikeCard(product._id, cardLiked);
     };
 
     return (

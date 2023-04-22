@@ -2,7 +2,7 @@ import React from 'react';
 import './cardList.css';
 import Card from '../Card/Card';
 
-export const CardList = ({ cards, userId }) => {
+export const CardList = ({ cards, userId, changeLikeCard }) => {
     return (
         <div className="cards">
             {cards.map((elem) => {
@@ -12,6 +12,7 @@ export const CardList = ({ cards, userId }) => {
                         {...elem}
                         product={elem}
                         userId={userId}
+                        changeLikeCard={changeLikeCard}
                     />
                 );
             })}

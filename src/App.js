@@ -3,7 +3,7 @@ import './App.css';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { CardList } from './components/CardList/CardList';
-import { api } from './utils/api';
+import { api, editLikeCard } from './utils/api';
 
 function App() {
     const [card, setCards] = useState([]);
@@ -14,6 +14,25 @@ function App() {
         return card.filter(
             (item) => item.author._id === '643fb8243291d790b3f3b309'
         );
+    };
+
+    const changeLikeCard = async (product, cardLiked) => {
+        const updateLikeInCard = await editLikeCard(product, cardLiked);
+
+        const deleteUpdatedCard = () => {
+            const newCard = card.map((item) =>
+                item._id === updateLikeInCard._id ? updateLikeInCard : item
+            );
+            setCards([...newCard]);
+        };
+
+        const addUpdatedCard = () => {
+            const newCard = card.map((item) =>
+                item._id === updateLikeInCard._id ? updateLikeInCard : item
+            );
+            setCards([...newCard]);
+        };
+        cardLiked ? deleteUpdatedCard() : addUpdatedCard();
     };
 
     useEffect(() => {
@@ -31,7 +50,11 @@ function App() {
             <Header setSearch={setSearch}></Header>
             <main>
                 <div className="container">
-                    <CardList cards={card} userId={user._id} />
+                    <CardList
+                        cards={card}
+                        userId={user._id}
+                        changeLikeCard={changeLikeCard}
+                    />
                 </div>
             </main>
             <Footer />
