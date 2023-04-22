@@ -22,7 +22,7 @@ function App() {
     }, [search]);
 
     useEffect(() => {
-        api.getProductList().then((res) => setCards(myCards(res.products)));
+        api.getAllProducts().then((res) => setCards(myCards(res.products)));
         api.getUserInfo().then((data) => setUser(data));
     }, []);
 

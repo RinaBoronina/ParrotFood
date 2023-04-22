@@ -17,7 +17,7 @@ class Api {
         this.headers = data.headers;
     }
 
-    getProductList() {
+    getAllProducts() {
         return fetch(`${this.baseUrl}/products`, {
             method: 'GET',
             headers: this.headers,
@@ -36,20 +36,19 @@ class Api {
             headers: this.headers,
         }).then(onResponse);
     }
+    // addLike(id) {
+    //     return fetch(`${this.baseUrl}/products/likes/${id}`, {
+    //         method: 'PUT',
+    //         headers: this.headers,
+    //     }).then(onResponse);
+    // }
 
-    addLike(id) {
-        return fetch(`${this.baseUrl}/products/likes/${id}`, {
-            method: 'PUT',
-            headers: this.headers,
-        }).then(onResponse);
-    }
-
-    removeLike(id) {
-        return fetch(`${this.baseUrl}/products/likes/${id}`, {
-            method: 'DELETE',
-            headers: this.headers,
-        }).then(onResponse);
-    }
+    // removeLike(id) {
+    //     return fetch(`${this.baseUrl}/products/likes/${id}`, {
+    //         method: 'DELETE',
+    //         headers: this.headers,
+    //     }).then(onResponse);
+    // }
 }
 
 export const api = new Api(config);
@@ -60,3 +59,37 @@ export const editLike = (id, cardLiked) => {
         headers: config.headers,
     }).then(onResponse);
 };
+
+// export const getAllProducts = (id, cardLiked) => {
+//     return fetch(`${config.baseUrl}/products`, {
+//         method: 'GET',
+//         headers: config.headers,
+//     }).then(onResponse);
+// };
+// export const getOneProduct = (id) => {
+//     return fetch(`${config.baseUrl}/products/${id}`, {
+//         method: 'GET',
+//         headers: config.headers,
+//     }).then(onResponse);
+// };
+
+// export const addReview = (id, reviewId) => {
+//     return fetch(`${config.baseUrl}/products/review/${id}/${reviewId}`, {
+//         method: 'POST',
+//         headers: config.headers,
+//     }).then(onResponse);
+// }
+
+// export const removeReview = (id) => {return fetch(`${config.baseUrl}/products/${id}`, {
+//     method: 'DELETE',
+//     headers: config.headers,
+// }).then(onResponse);}
+
+// export const getAllReview = () => {
+//     return fetch(`${config.baseUrl}/products/review/`, {
+//         method: 'GET',
+//         headers: config.headers,
+//     }).then(onResponse);
+// };
+
+// + GET https://api.react-learning.ru/products/review/:productId

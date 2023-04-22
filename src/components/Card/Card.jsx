@@ -1,7 +1,7 @@
 import React from 'react';
 import './card.css';
 import { ReactComponent as Like } from './img/Like.svg';
-import { api, editLike } from '../../utils/api';
+import { editLike } from '../../utils/api';
 
 const Card = ({ product, userId }) => {
     const cardLiked = product.likes.some((item) => item === userId);
