@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductView from '../../components/ProductView/ProductView';
 
-const PageProduct = (props) => {
+const PageProduct = () => {
     return (
         <div>
             <ProductView />

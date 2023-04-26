@@ -8,6 +8,7 @@ import CatalogProducts from './pages/CatalogProducts/CatalogProducts';
 import PageProduct from './pages/PageProduct/PageProduct';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import { Route, Routes } from 'react-router-dom';
+import FavoritePage from './pages/FavoritePage/FavoritePage';
 
 function App() {
     const [card, setCards] = useState([]);
@@ -81,8 +82,9 @@ function App() {
                                 />
                             }
                         />
-                        <Route path="/product" element={<PageProduct />} />
-                        <Route path="/notfound" element={<NotFoundPage />} />
+                        <Route path="/product/:id" element={<PageProduct />} />
+                        <Route path="/favorite" element={<FavoritePage />} />
+                        <Route path="*" element={<NotFoundPage />} />
                     </Routes>
                 </div>
             </main>

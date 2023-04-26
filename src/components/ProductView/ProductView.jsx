@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './productView.css';
+import { Link, useParams } from 'react-router-dom';
+import { getOneProduct } from '../../utils/api';
 
-const ProductView = (props) => {
+const ProductView = () => {
+    const [productInfo, setProductInfo] = useState({});
+    const { id } = useParams();
+
+    useEffect(() => {
+        getOneProduct(id).then((data) => setProductInfo(data));
+    }, [id]);
+
     return (
         <div className="container">
             <div className="product__wrapper">
                 <div className="product__title_wrapper">
-                    <span className="product__info_back" onClick={() => {}}>
-                        Назад
-                    </span>
-                    <h3 className="product__title">Title</h3>
+                    <Link to="/">
+                        <span className="product__info_back" onClick={() => {}}>
+                            К списку товаров
+                        </span>
+                    </Link>
+
+                    <h3 className="product__title">{productInfo.name}</h3>
                     <div className="product__rating">
                         <span>Artikul</span>
                         <span>Rate</span>
@@ -18,16 +30,18 @@ const ProductView = (props) => {
                 <div className="product__img_wrapper">
                     <img
                         className="product__img"
-                        src="https://react-learning.ru/image-compressed/2.jpg"
+                        src={productInfo.pictures}
                         alt=""
                     />
                 </div>
                 <div className="product__description">
-                    <span className="product__description_price">400p</span>
+                    <span className="product__description_price">
+                        {productInfo.price}&nbsp;₽
+                    </span>
                 </div>
                 <div className="product__description">
                     <span className="product__description_title">Описание</span>
-                    <span>Описание продукта ляляляля</span>
+                    <span>{productInfo.description}</span>
                 </div>
             </div>
         </div>

@@ -60,14 +60,15 @@ export const editLikeCard = (id, cardLiked) => {
     }).then(onResponse);
 };
 
+export const getOneProduct = (id) => {
+    return fetch(`${config.baseUrl}/products/${id}`, {
+        method: 'GET',
+        headers: config.headers,
+    }).then(onResponse);
+};
+
 // export const getAllProducts = (id, cardLiked) => {
 //     return fetch(`${config.baseUrl}/products`, {
-//         method: 'GET',
-//         headers: config.headers,
-//     }).then(onResponse);
-// };
-// export const getOneProduct = (id) => {
-//     return fetch(`${config.baseUrl}/products/${id}`, {
 //         method: 'GET',
 //         headers: config.headers,
 //     }).then(onResponse);
