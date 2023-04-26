@@ -4,8 +4,10 @@ import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { CardList } from './components/CardList/CardList';
 import { api, editLikeCard } from './utils/api';
-import NotFoundPage from './components/Pages/NotFoundPage/NotFoundPage';
-import CatalogProducts from './pages/CatalogProducts';
+import CatalogProducts from './pages/CatalogProducts/CatalogProducts';
+import PageProduct from './pages/PageProduct/PageProduct';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
     const [card, setCards] = useState([]);
@@ -61,12 +63,27 @@ function App() {
                         userId={user._id}
                         changeLikeCard={changeLikeCard}
                     /> */}
-                    <CatalogProducts
+                    {/* <CatalogProducts
                         cards={card}
                         user={user}
                         changeLikeCard={changeLikeCard}
-                    />
-                    <NotFoundPage />
+                    /> */}
+                    {/* <PageProduct /> */}
+                    {/* <NotFoundPage /> */}
+                    <Routes>
+                        <Route
+                            path="/"
+                            element={
+                                <CatalogProducts
+                                    cards={card}
+                                    user={user}
+                                    changeLikeCard={changeLikeCard}
+                                />
+                            }
+                        />
+                        <Route path="/product" element={<PageProduct />} />
+                        <Route path="/notfound" element={<NotFoundPage />} />
+                    </Routes>
                 </div>
             </main>
             <Footer />
