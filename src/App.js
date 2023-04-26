@@ -4,6 +4,8 @@ import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { CardList } from './components/CardList/CardList';
 import { api, editLikeCard } from './utils/api';
+import NotFoundPage from './components/Pages/NotFoundPage/NotFoundPage';
+import CatalogProducts from './pages/CatalogProducts';
 
 function App() {
     const [card, setCards] = useState([]);
@@ -19,20 +21,24 @@ function App() {
     const changeLikeCard = async (product, cardLiked) => {
         const updateLikeInCard = await editLikeCard(product, cardLiked);
 
-        const deleteUpdatedCard = () => {
-            const newCard = card.map((item) =>
-                item._id === updateLikeInCard._id ? updateLikeInCard : item
-            );
-            setCards([...newCard]);
-        };
+        const newCard = card.map((item) =>
+            item._id === updateLikeInCard._id ? updateLikeInCard : item
+        );
+        setCards([...newCard]);
+        // const deleteUpdatedCard = () => {
+        //     const newCard = card.map((item) =>
+        //         item._id === updateLikeInCard._id ? updateLikeInCard : item
+        //     );
+        //     setCards([...newCard]);
+        // };
 
-        const addUpdatedCard = () => {
-            const newCard = card.map((item) =>
-                item._id === updateLikeInCard._id ? updateLikeInCard : item
-            );
-            setCards([...newCard]);
-        };
-        cardLiked ? deleteUpdatedCard() : addUpdatedCard();
+        // const addUpdatedCard = () => {
+        //     const newCard = card.map((item) =>
+        //         item._id === updateLikeInCard._id ? updateLikeInCard : item
+        //     );
+        //     setCards([...newCard]);
+        // };
+        // cardLiked ? deleteUpdatedCard() : addUpdatedCard();
     };
 
     useEffect(() => {
@@ -50,11 +56,17 @@ function App() {
             <Header setSearch={setSearch}></Header>
             <main>
                 <div className="container">
-                    <CardList
+                    {/* <CardList
                         cards={card}
                         userId={user._id}
                         changeLikeCard={changeLikeCard}
+                    /> */}
+                    <CatalogProducts
+                        cards={card}
+                        user={user}
+                        changeLikeCard={changeLikeCard}
                     />
+                    <NotFoundPage />
                 </div>
             </main>
             <Footer />
