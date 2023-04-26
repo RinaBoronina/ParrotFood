@@ -49,6 +49,11 @@ class Api {
     //         headers: this.headers,
     //     }).then(onResponse);
     // }
+    // getProduct(id) {
+    //     return fetch(`${this.baseUrl}/products/${id}`, {
+    //         headers: this.headers,
+    //     }).then(onResponse);
+    // }
 }
 
 export const api = new Api(config);

@@ -1,25 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import './productView.css';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getOneProduct } from '../../utils/api';
 
 const ProductView = () => {
     const [productInfo, setProductInfo] = useState({});
     const { id } = useParams();
+    const nav = useNavigate();
 
     useEffect(() => {
         getOneProduct(id).then((data) => setProductInfo(data));
     }, [id]);
 
+    const goBack = () => {
+        nav('/');
+    };
+
     return (
         <div className="container">
             <div className="product__wrapper">
                 <div className="product__title_wrapper">
-                    <Link to="/">
-                        <span className="product__info_back" onClick={() => {}}>
-                            К списку товаров
-                        </span>
-                    </Link>
+                    {/* Либо обернуть в линк, либо f() через useNavigate */}
+                    {/* <Link to="/"> */}
+                    <span
+                        className="product__info_back"
+                        onClick={() => goBack()}
+                    >
+                        К списку товаров
+                    </span>
+                    {/* </Link> */}
 
                     <h3 className="product__title">{productInfo.name}</h3>
                     <div className="product__rating">

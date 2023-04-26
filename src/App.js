@@ -2,18 +2,19 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
-import { CardList } from './components/CardList/CardList';
 import { api, editLikeCard } from './utils/api';
 import CatalogProducts from './pages/CatalogProducts/CatalogProducts';
 import PageProduct from './pages/PageProduct/PageProduct';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import { Route, Routes } from 'react-router-dom';
 import FavoritePage from './pages/FavoritePage/FavoritePage';
+import RouterAuth from './route/RouterAuth/RouterAuth';
 
 function App() {
     const [card, setCards] = useState([]);
     const [search, setSearch] = useState(undefined);
     const [user, setUser] = useState({});
+    const [isAuth, setAuth] = useState(true);
 
     const myCards = (card) => {
         return card.filter(
@@ -58,6 +59,7 @@ function App() {
         <div className="App">
             <Header setSearch={setSearch}></Header>
             <main>
+                <button onClick={() => setAuth(!isAuth)}>Click me now!</button>
                 <div className="container">
                     {/* <CardList
                         cards={card}
@@ -71,21 +73,31 @@ function App() {
                     /> */}
                     {/* <PageProduct /> */}
                     {/* <NotFoundPage /> */}
-                    <Routes>
-                        <Route
-                            path="/"
-                            element={
-                                <CatalogProducts
-                                    cards={card}
-                                    user={user}
-                                    changeLikeCard={changeLikeCard}
-                                />
-                            }
-                        />
-                        <Route path="/product/:id" element={<PageProduct />} />
-                        <Route path="/favorite" element={<FavoritePage />} />
-                        <Route path="*" element={<NotFoundPage />} />
-                    </Routes>
+                    {isAuth ? (
+                        <Routes>
+                            <Route
+                                path="/"
+                                element={
+                                    <CatalogProducts
+                                        cards={card}
+                                        user={user}
+                                        changeLikeCard={changeLikeCard}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/product/:id"
+                                element={<PageProduct />}
+                            />
+                            <Route
+                                path="/favorite"
+                                element={<FavoritePage />}
+                            />
+                            <Route path="*" element={<NotFoundPage />} />
+                        </Routes>
+                    ) : (
+                        <RouterAuth />
+                    )}
                 </div>
             </main>
             <Footer />
