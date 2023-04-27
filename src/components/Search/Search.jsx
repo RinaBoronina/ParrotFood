@@ -4,7 +4,7 @@ import s from './search.module.css';
 
 const Search = ({ setSearch }) => {
     return (
-        <div class={s.search}>
+        <div className={s.search}>
             <input
                 className={s.search__input}
                 placeholder="Поиск..."
