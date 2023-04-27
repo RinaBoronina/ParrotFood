@@ -61,24 +61,13 @@ function App() {
             <main>
                 <button onClick={() => setAuth(!isAuth)}>Click me now!</button>
                 <div className="container">
-                    {/* <CardList
-                        cards={card}
-                        userId={user._id}
-                        changeLikeCard={changeLikeCard}
-                    /> */}
-                    {/* <CatalogProducts
-                        cards={card}
-                        user={user}
-                        changeLikeCard={changeLikeCard}
-                    /> */}
-                    {/* <PageProduct /> */}
-                    {/* <NotFoundPage /> */}
                     {isAuth ? (
                         <Routes>
                             <Route
                                 path="/"
                                 element={
                                     <CatalogProducts
+                                        search={search}
                                         cards={card}
                                         user={user}
                                         changeLikeCard={changeLikeCard}

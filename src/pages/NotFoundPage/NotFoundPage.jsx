@@ -1,6 +1,7 @@
 import React from 'react';
 import svg from './svg.svg';
 import './notfoundpage.css';
+import { Link } from 'react-router-dom';
 
 const NotFoundPage = (props) => {
     return (
@@ -15,7 +16,11 @@ const NotFoundPage = (props) => {
                     <h2 className="notFoundPage__title">
                         Простите, данная страница не найдена.
                     </h2>
-                    <button className="notFoundPage__btn">На главную</button>
+                    <Link to="/">
+                        <button className="notFoundPage__btn">
+                            На главную
+                        </button>
+                    </Link>
                 </div>
             </div>
         </>
