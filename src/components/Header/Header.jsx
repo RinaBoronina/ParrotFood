@@ -7,7 +7,6 @@ import { useLocation } from 'react-router-dom';
 
 export const Header = (props) => {
     const setSearchQuery = (path) => {
-        // console.log(path);
         props.setSearch(path);
     };
 
@@ -20,7 +19,8 @@ export const Header = (props) => {
                     <div className="header__logo">
                         <Logo />
                     </div>
-                    {location.pathname === '/' ? (
+                    {location.pathname === '/' ||
+                    location.pathname === '/notfoundProduct' ? (
                         <Search setSearch={setSearchQuery} />
                     ) : (
                         ''

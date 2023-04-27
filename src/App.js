@@ -143,7 +143,6 @@ function App() {
                                 path="/notfoundProduct"
                                 element={
                                     <NotFoundProductPage
-                                        search={search}
                                         setSearch={setSearch}
                                     />
                                 }

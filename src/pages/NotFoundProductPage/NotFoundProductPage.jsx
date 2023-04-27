@@ -1,9 +1,9 @@
 import React from 'react';
 import svg from '../NotFoundPage/svg.svg';
 import './notFoundProductPage.css';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
-const NotFoundProductPage = ({ search, setSearch }) => {
+const NotFoundProductPage = ({ setSearch }) => {
     return (
         <>
             <div className="container">
@@ -21,7 +21,10 @@ const NotFoundProductPage = ({ search, setSearch }) => {
                         {/* Как обнулить значение в инпуте ??? */}
                         <button
                             className="notFoundProductPage__btn"
-                            onClick={() => setSearch('')}
+                            onClick={() => {
+                                setSearch('');
+                                <NavLink to="/"></NavLink>;
+                            }}
                         >
                             На главную
                         </button>
