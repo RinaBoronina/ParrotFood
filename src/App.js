@@ -13,7 +13,7 @@ import NotFoundProductPage from './pages/NotFoundProductPage/NotFoundProductPage
 
 function App() {
     const localStorage = window.localStorage;
-
+    const localStorageCards = JSON.parse(localStorage.getItem('card'));
     const [card, setCards] = useState([]);
     const [search, setSearch] = useState(undefined);
     const [user, setUser] = useState({});
@@ -61,8 +61,10 @@ function App() {
         api.getAllProducts()
             .then((res) => {
                 setCards(myCards(res.products));
-                localStorage.setItem('card', JSON.stringify(res.products));
-                console.log(localStorage);
+                localStorage.setItem(
+                    'card',
+                    JSON.stringify(myCards(res.products))
+                );
             })
             .catch((error) => console.log(error));
         api.getUserInfo()
@@ -72,30 +74,35 @@ function App() {
 
     const onSort = (sortId) => {
         if (sortId === 'all') {
-            api.getAllProducts()
-                .then((res) => setCards(myCards(res.products)))
-                .catch((error) => console.log(error));
+            const newCard = localStorageCards.map((elem) => elem);
+            setCards([...newCard]);
         }
         if (sortId === 'lowPrice') {
-            const newCards = card.sort((a, b) => a.price - b.price);
+            const newCards = localStorageCards.sort(
+                (a, b) => a.price - b.price
+            );
             setCards([...newCards]);
         }
         if (sortId === 'highPrice') {
-            const newCards = card.sort((a, b) => b.price - a.price);
+            const newCards = localStorageCards.sort(
+                (a, b) => b.price - a.price
+            );
             setCards([...newCards]);
         }
         if (sortId === 'sale') {
-            const newCards = card
+            const newCards = localStorageCards
                 .filter((a) => a.discount)
                 .sort((a, b) => a.discount - b.discount);
             setCards([...newCards]);
         }
         if (sortId === 'new') {
-            const newCards = card.filter((a) => a.tags.includes('new'));
+            const newCards = localStorageCards.filter((a) =>
+                a.tags.includes('new')
+            );
             setCards([...newCards]);
         }
         if (sortId === 'popular') {
-            const newCards = card
+            const newCards = localStorageCards
                 .filter((a) => a.likes)
                 .sort((a, b) => b.likes.length - a.likes.length);
             setCards([...newCards]);
