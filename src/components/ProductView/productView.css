@@ -2,6 +2,11 @@
     display: flex;
     flex-direction: column;
     margin: 50px 0;
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #ffe44d;
 }
 
 .product__title_wrapper {
@@ -16,6 +21,9 @@
     line-height: 143%;
     color: #535557;
     transition: all 0.2s;
+    background: url(./left-arrow.svg) no-repeat;
+    padding-left: 20px;
+    align-items: center;
 }
 
 .product__info_back:hover {
@@ -34,8 +42,10 @@
 }
 
 .product__img_wrapper {
+    padding: 20px;
     flex: 1;
     margin-bottom: 30px;
+    position: relative;
 }
 
 .product__img {

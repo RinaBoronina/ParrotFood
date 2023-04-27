@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './productView.css';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getOneProduct } from '../../utils/api';
 
 const ProductView = () => {
@@ -15,6 +15,8 @@ const ProductView = () => {
     const goBack = () => {
         nav('/');
     };
+    // const location = useLocation();
+    // console.log({ location });
 
     return (
         <div className="container">
@@ -29,7 +31,6 @@ const ProductView = () => {
                         К списку товаров
                     </span>
                     {/* </Link> */}
-
                     <h3 className="product__title">{productInfo.name}</h3>
                     <div className="product__rating">
                         <span>Artikul</span>
@@ -37,6 +38,15 @@ const ProductView = () => {
                     </div>
                 </div>
                 <div className="product__img_wrapper">
+                    <div className="card__sticky card__sticky_left">
+                        {productInfo.discount ? (
+                            <span className="card__discount">
+                                -{productInfo.discount}%
+                            </span>
+                        ) : (
+                            ''
+                        )}
+                    </div>
                     <img
                         className="product__img"
                         src={productInfo.pictures}
