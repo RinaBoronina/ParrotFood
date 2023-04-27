@@ -3,7 +3,7 @@ import svg from '../NotFoundPage/svg.svg';
 import './notFoundProductPage.css';
 import { Link } from 'react-router-dom';
 
-const NotFoundProductPage = (props) => {
+const NotFoundProductPage = ({ search, setSearch }) => {
     return (
         <>
             <div className="container">
@@ -17,7 +17,12 @@ const NotFoundProductPage = (props) => {
                         Простите, товары по вашему запросу не найдены.
                     </h2>
                     <Link to="/">
-                        <button className="notFoundProductPage__btn">
+                        {/* Вот здесь вопрос: не перекидывает на главную потомцу что не принят и не обнулен search? */}
+                        {/* Как обнулить значение в инпуте ??? */}
+                        <button
+                            className="notFoundProductPage__btn"
+                            onClick={() => setSearch('')}
+                        >
                             На главную
                         </button>
                     </Link>

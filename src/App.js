@@ -9,8 +9,11 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import { Route, Routes } from 'react-router-dom';
 import FavoritePage from './pages/FavoritePage/FavoritePage';
 import RouterAuth from './route/RouterAuth/RouterAuth';
+import NotFoundProductPage from './pages/NotFoundProductPage/NotFoundProductPage';
 
 function App() {
+    const localStorage = window.localStorage;
+
     const [card, setCards] = useState([]);
     const [search, setSearch] = useState(undefined);
     const [user, setUser] = useState({});
@@ -23,7 +26,9 @@ function App() {
     };
 
     const changeLikeCard = async (product, cardLiked) => {
-        const updateLikeInCard = await editLikeCard(product, cardLiked);
+        const updateLikeInCard = await editLikeCard(product, cardLiked).catch(
+            (error) => console.log(error)
+        );
 
         const newCard = card.map((item) =>
             item._id === updateLikeInCard._id ? updateLikeInCard : item
@@ -47,13 +52,55 @@ function App() {
 
     useEffect(() => {
         if (search === undefined) return;
-        api.searchProducts(search).then((data) => setCards(myCards(data)));
+        api.searchProducts(search)
+            .then((data) => setCards(myCards(data)))
+            .catch((error) => console.log(error));
     }, [search]);
 
     useEffect(() => {
-        api.getAllProducts().then((res) => setCards(myCards(res.products)));
-        api.getUserInfo().then((data) => setUser(data));
+        api.getAllProducts()
+            .then((res) => {
+                setCards(myCards(res.products));
+                localStorage.setItem('card', JSON.stringify(res.products));
+                console.log(localStorage);
+            })
+            .catch((error) => console.log(error));
+        api.getUserInfo()
+            .then((data) => setUser(data))
+            .catch((error) => console.log(error));
     }, []);
+
+    const onSort = (sortId) => {
+        if (sortId === 'all') {
+            api.getAllProducts()
+                .then((res) => setCards(myCards(res.products)))
+                .catch((error) => console.log(error));
+        }
+        if (sortId === 'lowPrice') {
+            const newCards = card.sort((a, b) => a.price - b.price);
+            setCards([...newCards]);
+        }
+        if (sortId === 'highPrice') {
+            const newCards = card.sort((a, b) => b.price - a.price);
+            setCards([...newCards]);
+        }
+        if (sortId === 'sale') {
+            const newCards = card
+                .filter((a) => a.discount)
+                .sort((a, b) => a.discount - b.discount);
+            setCards([...newCards]);
+        }
+        if (sortId === 'new') {
+            const newCards = card.filter((a) => a.tags.includes('new'));
+            setCards([...newCards]);
+        }
+        if (sortId === 'popular') {
+            const newCards = card
+                .filter((a) => a.likes)
+                .sort((a, b) => b.likes.length - a.likes.length);
+            setCards([...newCards]);
+        }
+    };
 
     return (
         <div className="App">
@@ -67,10 +114,12 @@ function App() {
                                 path="/"
                                 element={
                                     <CatalogProducts
+                                        setSearch={setSearch}
                                         search={search}
                                         cards={card}
                                         user={user}
                                         changeLikeCard={changeLikeCard}
+                                        onSort={onSort}
                                     />
                                 }
                             />
@@ -83,6 +132,15 @@ function App() {
                                 element={<FavoritePage />}
                             />
                             <Route path="*" element={<NotFoundPage />} />
+                            <Route
+                                path="/notfoundProduct"
+                                element={
+                                    <NotFoundProductPage
+                                        search={search}
+                                        setSearch={setSearch}
+                                    />
+                                }
+                            />
                         </Routes>
                     ) : (
                         <RouterAuth />
