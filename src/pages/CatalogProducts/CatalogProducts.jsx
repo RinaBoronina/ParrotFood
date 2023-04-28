@@ -1,18 +1,10 @@
 import React from 'react';
 import { CardList } from '../../components/CardList/CardList';
 import './catalogProduct.css';
-import NotFoundProductPage from '../NotFoundProductPage/NotFoundProductPage';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, NavLink, Navigate } from 'react-router-dom';
 import SortCards from '../../components/SortCards/SortCards';
 
-const CatalogProducts = ({
-    cards,
-    user,
-    changeLikeCard,
-    search,
-    setSearch,
-    onSort,
-}) => {
+const CatalogProducts = ({ cards, user, changeLikeCard, search, onSort }) => {
     const getEndings = (num) => {
         const res = num % 10;
         if (res === 1) {
@@ -37,7 +29,7 @@ const CatalogProducts = ({
                 ''
             )}
             {search && cards.length === 0 ? (
-                <NotFoundProductPage setSearch={setSearch} />
+                <Navigate to="/notfoundProduct"></Navigate>
             ) : (
                 ''
             )}
