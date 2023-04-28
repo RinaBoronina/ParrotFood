@@ -5,9 +5,9 @@ import Search from '../Search/Search';
 import HeaderIcons from './HeaderIcons/HeaderIcons';
 import { Link, useLocation } from 'react-router-dom';
 
-export const Header = ({ props, favorites }) => {
+export const Header = ({ setSearch, favorites }) => {
     const setSearchQuery = (path) => {
-        props.setSearch(path);
+        setSearch(path);
     };
 
     const location = useLocation();
