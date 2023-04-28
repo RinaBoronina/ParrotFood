@@ -5,12 +5,13 @@ import { getOneProduct } from '../../utils/api';
 import GoBack from '../GoBack/GoBack';
 import { ReactComponent as Like } from '../Card/img/Like.svg';
 
-const ProductView = ({ changeLikeCard }) => {
-    const [productInfo, setProductInfo] = useState({});
-    const { id } = useParams();
-    useEffect(() => {
-        getOneProduct(id).then((data) => setProductInfo(data));
-    }, [id]);
+const ProductView = ({ changeLikeCard, productInfo }) => {
+    // const [productInfo, setProductInfo] = useState({});
+    // const { id } = useParams();
+    // useEffect(() => {
+    //     getOneProduct(id).then((data) => setProductInfo(data));
+    // }, [id]);
+    console.log(productInfo.name);
 
     return (
         <>

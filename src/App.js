@@ -134,7 +134,6 @@ function App() {
                                 path="/"
                                 element={
                                     <CatalogProducts
-                                        setSearch={setSearch}
                                         search={search}
                                         cards={card}
                                         user={user}
