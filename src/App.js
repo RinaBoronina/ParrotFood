@@ -18,7 +18,7 @@ function App() {
     const [search, setSearch] = useState(undefined);
     const [user, setUser] = useState({});
     const [isAuth, setAuth] = useState(true);
-    const [favorite, setFavorite] = useState([]);
+    const [favorites, setFavorite] = useState([]);
 
     const myCards = (card) => {
         return card.filter(
@@ -66,25 +66,23 @@ function App() {
     }, [search]);
 
     const findFavorite = (card, id) => {
-        return card.likes.some((i) => i === id);
+        return card.likes.some((i) => i == id);
     };
 
     useEffect(() => {
-        api.getAllProducts()
-            .then((res) => {
+        Promise.all([api.getUserInfo(), api.getAllProducts()]).then(
+            ([data, res]) => {
+                setUser(data);
                 const filtered = myCards(res.products);
                 setCards(filtered);
                 localStorage.setItem('card', JSON.stringify(filtered));
 
-                const favorite = localStorageCards.filter((item) =>
-                    findFavorite(item, user._id)
+                const MyFavorite = localStorageCards.filter((item) =>
+                    findFavorite(item, data._id)
                 );
-                setFavorite(favorite);
-            })
-            .catch((error) => console.log(error));
-        api.getUserInfo()
-            .then((data) => setUser(data))
-            .catch((error) => console.log(error));
+                setFavorite(MyFavorite);
+            }
+        );
     }, []);
 
     const onSort = (sortId) => {
@@ -126,7 +124,7 @@ function App() {
 
     return (
         <div className="App">
-            <Header setSearch={setSearch}></Header>
+            <Header setSearch={setSearch} favorites={favorites}></Header>
             <main className="main">
                 {/* <button onClick={() => setAuth(!isAuth)}>Click me now!</button> */}
                 <div className="container">
@@ -147,13 +145,18 @@ function App() {
                             />
                             <Route
                                 path="/product/:id"
-                                element={<PageProduct />}
+                                element={
+                                    <PageProduct
+                                        user={user}
+                                        changeLikeCard={changeLikeCard}
+                                    />
+                                }
                             />
                             <Route
                                 path="/favorite"
                                 element={
                                     <FavoritePage
-                                        favorite={favorite}
+                                        favorites={favorites}
                                         userId={user._id}
                                         changeLikeCard={changeLikeCard}
                                     />

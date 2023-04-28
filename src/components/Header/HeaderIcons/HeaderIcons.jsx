@@ -5,13 +5,16 @@ import { ReactComponent as Heart } from './icons/Favorites.svg';
 import { ReactComponent as Cart } from './icons/ic-cart.svg';
 import { Link } from 'react-router-dom';
 
-const HeaderIcons = (props) => {
+const HeaderIcons = ({ favorites }) => {
+    // console.log({ favorite });
     return (
         <div className="header__icons">
             <div>
                 <Link className="header__heart" to={'/favorite'}>
                     <Heart />
-                    <span className="header__icons_bubble">11</span>
+                    <span className="header__icons_bubble">
+                        {favorites.length}
+                    </span>
                 </Link>
             </div>
             <div>

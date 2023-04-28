@@ -3,11 +3,11 @@ import './productView.css';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getOneProduct } from '../../utils/api';
 import GoBack from '../GoBack/GoBack';
+import { ReactComponent as Like } from '../Card/img/Like.svg';
 
-const ProductView = () => {
+const ProductView = ({ changeLikeCard }) => {
     const [productInfo, setProductInfo] = useState({});
     const { id } = useParams();
-
     useEffect(() => {
         getOneProduct(id).then((data) => setProductInfo(data));
     }, [id]);
@@ -32,6 +32,18 @@ const ProductView = () => {
                         ) : (
                             ''
                         )}
+                    </div>
+                    <div className="card__sticky card__sticky_right">
+                        <button
+                            onClick={changeLikeCard}
+                            className={`btn__like ${
+                                productInfo.likes
+                                    ? 'card__like_active'
+                                    : 'card__like'
+                            }`}
+                        >
+                            <Like />
+                        </button>
                     </div>
                     <img
                         className="product__img"

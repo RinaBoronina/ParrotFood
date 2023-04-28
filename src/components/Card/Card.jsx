@@ -6,15 +6,7 @@ import { Link } from 'react-router-dom';
 const Card = ({ product, userId, changeLikeCard }) => {
     const cardLiked = product.likes.some((item) => item === userId);
 
-    // console.log(product.likes);
-    const changeLike = () => {
-        // return !cardLiked
-        //     ? api.addLike(product._id)
-        //     : api.removeLike(product._id);
-        changeLikeCard(product._id, cardLiked);
-        // return editLikeCard(product._id, cardLiked);
-    };
-
+    console.log(product);
     return (
         <div className="card">
             <div className="card__sticky card__sticky_left">
@@ -29,7 +21,9 @@ const Card = ({ product, userId, changeLikeCard }) => {
             </div>
             <div className="card__sticky card__sticky_right">
                 <button
-                    onClick={changeLike}
+                    onClick={() => {
+                        changeLikeCard(product._id, cardLiked);
+                    }}
                     className={`btn__like ${
                         cardLiked ? 'card__like_active' : 'card__like'
                     }`}
