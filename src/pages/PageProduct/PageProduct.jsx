@@ -3,7 +3,7 @@ import ProductView from '../../components/ProductView/ProductView';
 import { useParams } from 'react-router-dom';
 import { getOneProduct } from '../../utils/api';
 
-const PageProduct = () => {
+const PageProduct = ({ changeLikeCard, user, localStorageCards }) => {
     const [productInfo, setProductInfo] = useState({});
     const { id } = useParams();
     useEffect(() => {
@@ -12,7 +12,12 @@ const PageProduct = () => {
 
     return (
         <div>
-            <ProductView productInfo={productInfo} />
+            <ProductView
+                productInfo={productInfo}
+                {...productInfo}
+                changeLikeCard={changeLikeCard}
+                user={user}
+            />
         </div>
     );
 };

@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './card.css';
 import { ReactComponent as Like } from './img/Like.svg';
 import { Link } from 'react-router-dom';
+import { CardContext } from '../../context/cardContext';
 
-const Card = ({ product, userId, changeLikeCard }) => {
-    const cardLiked = product.likes.some((item) => item === userId);
+const Card = ({ product }) => {
+    const { user, changeLikeCard } = useContext(CardContext);
 
-    console.log(product);
+    const cardLiked = product.likes.some((item) => item === user._id);
+
     return (
         <div className="card">
             <div className="card__sticky card__sticky_left">

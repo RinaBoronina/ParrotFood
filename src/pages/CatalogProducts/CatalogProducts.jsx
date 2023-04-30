@@ -4,7 +4,7 @@ import './catalogProduct.css';
 import { Link, NavLink, Navigate } from 'react-router-dom';
 import SortCards from '../../components/SortCards/SortCards';
 
-const CatalogProducts = ({ cards, user, changeLikeCard, search, onSort }) => {
+const CatalogProducts = ({ cards, search, onSort }) => {
     const getEndings = (num) => {
         const res = num % 10;
         if (res === 1) {
@@ -28,17 +28,13 @@ const CatalogProducts = ({ cards, user, changeLikeCard, search, onSort }) => {
             ) : (
                 ''
             )}
-            {search && cards.length === 0 ? (
+            {/* {search && cards.length === 0 ? (
                 <Navigate to="/notfoundProduct"></Navigate>
             ) : (
                 ''
-            )}
+            )} */}
             <SortCards onSort={onSort} />
-            <CardList
-                cards={cards}
-                userId={user._id}
-                changeLikeCard={changeLikeCard}
-            />
+            <CardList cards={cards} />
         </>
     );
 };

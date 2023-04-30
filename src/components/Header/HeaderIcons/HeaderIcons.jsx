@@ -6,15 +6,18 @@ import { ReactComponent as Cart } from './icons/ic-cart.svg';
 import { Link } from 'react-router-dom';
 
 const HeaderIcons = ({ favorites }) => {
-    // console.log({ favorite });
     return (
         <div className="header__icons">
             <div>
                 <Link className="header__heart" to={'/favorite'}>
                     <Heart />
-                    <span className="header__icons_bubble">
-                        {favorites.length}
-                    </span>
+                    {favorites.length !== 0 ? (
+                        <span className="header__icons_bubble">
+                            {favorites.length}
+                        </span>
+                    ) : (
+                        ''
+                    )}
                 </Link>
             </div>
             <div>
