@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './favoritePage.css';
 import GoBack from '../../components/GoBack/GoBack';
 import { CardList } from '../../components/CardList/CardList';
+import { CardContext } from '../../context/cardContext';
 
-const FavoritePage = ({ favorites }) => {
+const FavoritePage = () => {
+    const { favorites } = useContext(CardContext);
+
     return (
         <div className="favorite__wrapper">
             <GoBack />
