@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ProductView from '../../components/ProductView/ProductView';
 import { useParams } from 'react-router-dom';
-import { getOneProduct } from '../../utils/api';
+import { editLikeCard, getOneProduct } from '../../utils/api';
 import { CardContext } from '../../context/cardContext';
 import GoBack from '../../components/GoBack/GoBack';
 import { ReactComponent as Like } from '../../components/Card/img/Like.svg';
 import './pageProduct.css';
 
 const PageProduct = () => {
-    const { user, changeLikeCard } = useContext(CardContext);
+    const { card, user, setCards, findFavorite, setFavorite, localStorage } =
+        useContext(CardContext);
     const [productInfo, setProductInfo] = useState({});
     const { id } = useParams();
 
@@ -16,7 +17,27 @@ const PageProduct = () => {
         getOneProduct(id).then((data) => setProductInfo(data));
     }, [id]);
 
-    console.log({ productInfo });
+    const cardIsLiked = productInfo.likes
+        ? productInfo.likes.includes(user._id)
+        : false;
+
+    const changeLikeCardOne = async (id, cardIsLiked) => {
+        const updateLikeInCard = await editLikeCard(id, cardIsLiked).catch(
+            (error) => console.log(error)
+        );
+
+        const newCard = card.map((item) =>
+            item._id === updateLikeInCard._id ? updateLikeInCard : item
+        );
+        setProductInfo(updateLikeInCard);
+        setCards([...newCard]);
+        localStorage.setItem('card', JSON.stringify(newCard));
+
+        const newFavorite = newCard.filter((item) =>
+            findFavorite(item, user._id)
+        );
+        setFavorite(newFavorite);
+    };
 
     return (
         <>
@@ -41,13 +62,9 @@ const PageProduct = () => {
                     </div>
                     <div className="card__sticky card__sticky_right">
                         <button
-                            onClick={() => {
-                                console.log('click');
-                            }}
+                            onClick={() => changeLikeCardOne(id, cardIsLiked)}
                             className={`btn__like ${
-                                productInfo.likes
-                                    ? 'card__like_active'
-                                    : 'card__like'
+                                cardIsLiked ? 'card__like_active' : 'card__like'
                             }`}
                         >
                             <Like />
